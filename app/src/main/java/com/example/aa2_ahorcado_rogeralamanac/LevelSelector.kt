@@ -1,7 +1,11 @@
 package com.example.aa2_ahorcado_rogeralamanac
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.LinearLayout
+import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -9,28 +13,44 @@ import models.Level
 import models.LevelAdapter
 
 class LevelSelector : AppCompatActivity() {
+    private lateinit var myToolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.level_selector)
 
         val levels = listOf(
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground),
-            Level("ENTI", "4", R.drawable.ic_launcher_foreground)
+            Level(getString(R.string.wordLevel1), getString(R.string.wordLevel1).length, R.drawable.charmeleon),
+            Level(getString(R.string.wordLevel2), getString(R.string.wordLevel2).length, R.drawable.charmander),
+            Level(getString(R.string.wordLevel3), getString(R.string.wordLevel3).length, R.drawable.charizard),
+            Level(getString(R.string.wordLevel4), getString(R.string.wordLevel4).length, R.drawable.charmander),
+            Level(getString(R.string.wordLevel5), getString(R.string.wordLevel5).length, R.drawable.charizard),
+            Level(getString(R.string.wordLevel6), getString(R.string.wordLevel6).length, R.drawable.charizard),
+            Level(getString(R.string.wordLevel7), getString(R.string.wordLevel7).length, R.drawable.charmander),
+            Level(getString(R.string.wordLevel8), getString(R.string.wordLevel8).length, R.drawable.charizard),
+            Level(getString(R.string.wordLevel9), getString(R.string.wordLevel9).length, R.drawable.charmander),
+            Level(getString(R.string.wordLevel10), getString(R.string.wordLevel10).length, R.drawable.charmeleon),
+            Level(getString(R.string.wordLevel11), getString(R.string.wordLevel11).length, R.drawable.charmeleon),
+            Level(getString(R.string.wordLevel12), getString(R.string.wordLevel12).length, R.drawable.charizard)
         )
-
+        myToolbar = findViewById(R.id.toolbarLevelSelector)
+        setSupportActionBar(myToolbar)
+        //Inicializamos RecyclerView
         val recyclerView: RecyclerView = findViewById(R.id.levels_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LevelAdapter(levels)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_general, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.settings) {
+            true
+        } else{
+            super.onOptionsItemSelected(item)
+        }
+
     }
 }
