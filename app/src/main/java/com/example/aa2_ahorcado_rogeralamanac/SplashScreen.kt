@@ -3,10 +3,7 @@ package com.example.aa2_ahorcado_rogeralamanac
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +12,7 @@ class SplashScreen : AppCompatActivity() {
         val layout = findViewById<View>(R.id.rootLayout)
 
         layout.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, LevelSelector::class.java)
             startActivity(intent)
             finish()
         }
