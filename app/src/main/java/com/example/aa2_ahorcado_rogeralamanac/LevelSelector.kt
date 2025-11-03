@@ -17,7 +17,7 @@ class LevelSelector : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.level_selector)
-
+        //Seteamos list de niveles
         val levels = listOf(
             Level(getString(R.string.wordLevel1), getString(R.string.wordLevel1).length, R.drawable.charmeleon),
             Level(getString(R.string.wordLevel2), getString(R.string.wordLevel2).length, R.drawable.charmander),
