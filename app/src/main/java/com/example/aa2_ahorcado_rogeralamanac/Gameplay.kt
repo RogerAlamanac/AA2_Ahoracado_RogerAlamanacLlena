@@ -1,21 +1,25 @@
 package com.example.aa2_ahorcado_rogeralamanac
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.helper.widget.Grid
 
 class Gameplay : AppCompatActivity() {
+    //Variables del layout del gameplay
     private lateinit var imgAhorcado : ImageView
     private lateinit var levelWord : String
     private lateinit var textLevelWord : TextView
-    private lateinit var gridLetters : GridLayout
-
+    private lateinit var letterButton : Button
+    private lateinit var letterGrid : GridLayout
     private var intentsNum : Int = 6
 
     private lateinit var myToolbar: Toolbar
@@ -27,7 +31,8 @@ class Gameplay : AppCompatActivity() {
 
         imgAhorcado = findViewById(R.id.imgAhorcado)
         textLevelWord = findViewById(R.id.textWord)
-        gridLetters = findViewById(R.id.gridLetras)
+
+        setKeyboard()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -42,6 +47,23 @@ class Gameplay : AppCompatActivity() {
         } else{
             super.onOptionsItemSelected(item)
         }
+
+    }
+    private fun setKeyboard(){
+        val letras = 'A'..'Z'
+        for (letra in letras){
+            val boton = Button(this)
+            boton.text = letra.toString()
+            boton.textSize = 18f
+            boton.setBackgroundColor(Color.parseColor("#E0E0E0"))
+            boton.setTextColor(Color.BLACK)
+            boton.setOnClickListener {
+               // manejarIntento(letra, boton)
+            }
+            letterGrid.addView(boton)
+        }
+    }
+    private fun onClickedButton(letterButton: Button){
 
     }
 }
