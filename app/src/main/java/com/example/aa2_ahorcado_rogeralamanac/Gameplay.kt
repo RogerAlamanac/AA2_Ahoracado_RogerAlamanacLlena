@@ -36,7 +36,8 @@ class Gameplay : AppCompatActivity() {
         letterGrid = findViewById(R.id.letterGrid)
 
         //Detecta el string que envia el level selector para saber cual es la palabra actual
-        levelWord = intent.getStringExtra("currentWord") ?: "Android"
+        levelWord = intent.getStringExtra("currentWord") ?: " "
+
         setKeyboard()
         updateWord()
     }
@@ -84,12 +85,12 @@ class Gameplay : AppCompatActivity() {
         else{
             button.setBackgroundColor(getColor(R.color.red))
             intentsLeft--
-            //updateImage()
+            updateImage()
+            isEnd(button)
         }
 
         button.setEnabled(false);
         updateWord()
-        //isEnd()
     }
 
     private fun updateWord(){
@@ -102,13 +103,28 @@ class Gameplay : AppCompatActivity() {
                 textToPrint += "_ "
             }
         }
-
         textLevelWord.text = textToPrint;
     }
     private fun updateImage(){
-    //val currentImage = resources.getIdentifier("img_ahorcadofinal_${6-intentsLeft}", "drawable", packageName)
-    }
-    private fun onClickedButton(letterButton: Button){
 
+        val currentImage = when(intentsLeft){
+            6->R.drawable.img_ahorcado_0
+            5->R.drawable.img_ahorcado_1
+            4->R.drawable.img_ahorcado_2
+            3->R.drawable.img_ahorcado_3
+            2->R.drawable.img_ahorcado_4
+            1->R.drawable.img_ahorcado_5
+            0->R.drawable.img_ahorcado_6
+            else -> R.drawable.img_ahorcado_dead
+        }
+        imgAhorcado.setImageResource(currentImage)
+    }
+
+    private fun isEnd(button: Button){
+        if(intentsLeft == 0){
+            /*val intent = Intent(this, LevelSelector::class.java)
+            startActivity(intent)*/
+            button.setEnabled(false)
+        }
     }
 }
