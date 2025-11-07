@@ -24,8 +24,7 @@
         android:layout_height="220dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
-        android:src="@drawable/img_ahorcadofinal"
-        android:contentDescription="Imagen del ahorcado" />
+        android:src="@drawable/img_ahorcadofinal" />
 
     <!-- Palabra oculta -->
     <TextView

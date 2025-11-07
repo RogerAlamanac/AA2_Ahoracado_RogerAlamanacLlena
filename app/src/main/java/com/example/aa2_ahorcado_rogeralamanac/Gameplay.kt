@@ -35,7 +35,8 @@ class Gameplay : AppCompatActivity() {
         textLevelWord = findViewById(R.id.textWord)
         letterGrid = findViewById(R.id.letterGrid)
 
-        levelWord = intent.getStringExtra("nivel_palabra") ?: "ANDROID"
+        //Detecta el string que envia el level selector para saber cual es la palabra actual
+        levelWord = intent.getStringExtra("currentWord") ?: "Android"
         setKeyboard()
         updateWord()
     }
@@ -61,8 +62,8 @@ class Gameplay : AppCompatActivity() {
             val buttonLetter = Button(this)
             buttonLetter.text = letter.toString()
             buttonLetter.textSize = 18f
-            buttonLetter.setBackgroundColor(Color.parseColor("#E0E0E0"))
-            buttonLetter.setTextColor(Color.BLACK)
+            buttonLetter.setBackgroundColor(getColor(R.color.grey))
+            buttonLetter.setTextColor(getColor(R.color.black))
             buttonLetter.setOnClickListener {
                 gameManager(letter, buttonLetter);
             }
@@ -74,14 +75,14 @@ class Gameplay : AppCompatActivity() {
     private fun gameManager(letter: Char, button: Button){
         //Si la letra esta usada, salimos de la funcion; Si no, la añadimos en el array de letras usadas
         if (letter in usedLetters) return
-        usedLetters.plus(letter)
+        usedLetters = usedLetters.plus(letter)
 
         //Si la letra escogida esta en la palabra, se pone en verde; Si no, se pone en rojo y se gasta una vida
         if(letter in levelWord) {
-            button.setBackgroundColor(resources.getColor(R.color.green))
+            button.setBackgroundColor(getColor(R.color.green))
         }
         else{
-            button.setBackgroundColor(resources.getColor(R.color.red))
+            button.setBackgroundColor(getColor(R.color.red))
             intentsLeft--
             //updateImage()
         }
@@ -105,7 +106,7 @@ class Gameplay : AppCompatActivity() {
         textLevelWord.text = textToPrint;
     }
     private fun updateImage(){
-    val currentImage = resources.getIdentifier("img_ahorcadoFinal_${6-intentsLeft}", "drawable", packageName)
+    //val currentImage = resources.getIdentifier("img_ahorcadofinal_${6-intentsLeft}", "drawable", packageName)
     }
     private fun onClickedButton(letterButton: Button){
 
