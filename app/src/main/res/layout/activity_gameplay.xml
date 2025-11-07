@@ -40,13 +40,15 @@
 
     <!-- Grid con botones de letras -->
     <GridLayout
-        android:id="@+id/gridLetras"
+        android:id="@+id/letterGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="7"
+        android:columnCount="4"
+        android:rowCount="7"
         android:alignmentMode="alignMargins"
         android:useDefaultMargins="true"
-        android:rowOrderPreserved="false" />
+        android:gravity="center" />
+
 
     <!-- TECLADO DE LETRAS (Botones A-Z) -->
 

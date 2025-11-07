@@ -18,9 +18,11 @@ class Gameplay : AppCompatActivity() {
     private lateinit var imgAhorcado : ImageView
     private lateinit var levelWord : String
     private lateinit var textLevelWord : TextView
-    private lateinit var letterButton : Button
     private lateinit var letterGrid : GridLayout
-    private var intentsNum : Int = 6
+    private  var usedLetters: Array<Char> = arrayOf<Char>();
+
+    private var intentsLeft : Int = 6
+
 
     private lateinit var myToolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +33,11 @@ class Gameplay : AppCompatActivity() {
 
         imgAhorcado = findViewById(R.id.imgAhorcado)
         textLevelWord = findViewById(R.id.textWord)
+        letterGrid = findViewById(R.id.letterGrid)
 
+        levelWord = intent.getStringExtra("nivel_palabra") ?: "ANDROID"
         setKeyboard()
+        updateWord()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -50,18 +55,57 @@ class Gameplay : AppCompatActivity() {
 
     }
     private fun setKeyboard(){
-        val letras = 'A'..'Z'
-        for (letra in letras){
-            val boton = Button(this)
-            boton.text = letra.toString()
-            boton.textSize = 18f
-            boton.setBackgroundColor(Color.parseColor("#E0E0E0"))
-            boton.setTextColor(Color.BLACK)
-            boton.setOnClickListener {
-               // manejarIntento(letra, boton)
+        var letters = 'A'..'Z'
+        //Bucle que añade botones (las letras) a la gridLayout
+        for (letter in letters){
+            val buttonLetter = Button(this)
+            buttonLetter.text = letter.toString()
+            buttonLetter.textSize = 18f
+            buttonLetter.setBackgroundColor(Color.parseColor("#E0E0E0"))
+            buttonLetter.setTextColor(Color.BLACK)
+            buttonLetter.setOnClickListener {
+                gameManager(letter, buttonLetter);
             }
-            letterGrid.addView(boton)
+            //Añadimos el boton en la grid
+            letterGrid.addView(buttonLetter)
         }
+    }
+
+    private fun gameManager(letter: Char, button: Button){
+        //Si la letra esta usada, salimos de la funcion; Si no, la añadimos en el array de letras usadas
+        if (letter in usedLetters) return
+        usedLetters.plus(letter)
+
+        //Si la letra escogida esta en la palabra, se pone en verde; Si no, se pone en rojo y se gasta una vida
+        if(letter in levelWord) {
+            button.setBackgroundColor(resources.getColor(R.color.green))
+        }
+        else{
+            button.setBackgroundColor(resources.getColor(R.color.red))
+            intentsLeft--
+            //updateImage()
+        }
+
+        button.setEnabled(false);
+        updateWord()
+        //isEnd()
+    }
+
+    private fun updateWord(){
+        var textToPrint = " ";
+        for(it in levelWord){
+            if(it in usedLetters) {
+                textToPrint += "$it"
+            }
+            else {
+                textToPrint += "_ "
+            }
+        }
+
+        textLevelWord.text = textToPrint;
+    }
+    private fun updateImage(){
+    val currentImage = resources.getIdentifier("img_ahorcadoFinal_${6-intentsLeft}", "drawable", packageName)
     }
     private fun onClickedButton(letterButton: Button){
 
