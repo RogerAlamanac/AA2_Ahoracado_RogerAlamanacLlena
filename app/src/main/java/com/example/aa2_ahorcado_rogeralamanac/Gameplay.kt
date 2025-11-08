@@ -95,6 +95,7 @@ class Gameplay : AppCompatActivity() {
         isEnd()
     }
 
+    //Funcion para actualizar la palabra
     private fun updateWord(){
         var textToPrint = " ";
         for(it in levelWord){
@@ -121,6 +122,7 @@ class Gameplay : AppCompatActivity() {
         imgAhorcado.setImageResource(currentImage)
     }
 
+    //Funcion que comprueba si el jugador pierde o gana
     private fun isEnd(){
         if(intentsLeft == 0){
            endMessage("HAS PERDIDO!")
