@@ -1,17 +1,17 @@
 package com.example.aa2_ahorcado_rogeralamanac
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.helper.widget.Grid
 
 class Gameplay : AppCompatActivity() {
     //Variables del layout del gameplay
@@ -19,10 +19,10 @@ class Gameplay : AppCompatActivity() {
     private lateinit var levelWord : String
     private lateinit var textLevelWord : TextView
     private lateinit var letterGrid : GridLayout
-    private  var usedLetters: Array<Char> = arrayOf<Char>();
+    private  var usedLetters: Array<Char> = arrayOf()
 
     private var intentsLeft : Int = 6
-
+    private lateinit var gameplayLayout : View
 
     private lateinit var myToolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +31,7 @@ class Gameplay : AppCompatActivity() {
         myToolbar = findViewById(R.id.toolbarGameplay)
         setSupportActionBar(myToolbar)
 
+        gameplayLayout = findViewById(R.id.gameplayLayout)
         imgAhorcado = findViewById(R.id.imgAhorcado)
         textLevelWord = findViewById(R.id.textWord)
         letterGrid = findViewById(R.id.letterGrid)
@@ -86,11 +87,12 @@ class Gameplay : AppCompatActivity() {
             button.setBackgroundColor(getColor(R.color.red))
             intentsLeft--
             updateImage()
-            isEnd(button)
+
         }
 
         button.setEnabled(false);
         updateWord()
+        isEnd()
     }
 
     private fun updateWord(){
@@ -114,17 +116,36 @@ class Gameplay : AppCompatActivity() {
             3->R.drawable.img_ahorcado_3
             2->R.drawable.img_ahorcado_4
             1->R.drawable.img_ahorcado_5
-            0->R.drawable.img_ahorcado_6
             else -> R.drawable.img_ahorcado_dead
         }
         imgAhorcado.setImageResource(currentImage)
     }
 
-    private fun isEnd(button: Button){
+    private fun isEnd(){
         if(intentsLeft == 0){
-            /*val intent = Intent(this, LevelSelector::class.java)
-            startActivity(intent)*/
-            button.setEnabled(false)
+           endMessage("HAS PERDIDO!")
+        } else if(levelWord.all{ it in usedLetters}){
+            endMessage("HAS GANADO!")
         }
+    }
+
+    private fun endMessage(message: String){
+        //Creamos el "pop-up" del mensaje you win / you lose
+        //El dialogo lo he visto en la API de ANDROID:
+        // https://developer.android.com/reference/androidx/appcompat/app/AlertDialog.Builder
+        val popUpMessage = AlertDialog.Builder(this)
+            .setTitle(message)
+            .setMessage("Toca en la pantalla para volver al selector de niveles.")
+            .setCancelable(true)
+            .create()
+
+        // Detectar click para volver al levelSelector (cuando se "cancela", clicando en la pantalla)
+        popUpMessage.setOnCancelListener {
+            val intent = Intent(this, LevelSelector::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        popUpMessage.show()
     }
 }
