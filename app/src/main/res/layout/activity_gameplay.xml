@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/gameplayLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Gameplay">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="16dp"
+    android:background="#F8F8F8">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarGameplay"
@@ -15,4 +17,39 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:menu="@menu/toolbar_general" />
+
+    <!-- Imagen del ahorcado -->
+    <ImageView
+        android:id="@+id/imgAhorcado"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/img_ahorcado_0" />
+
+    <!-- Palabra oculta -->
+    <TextView
+        android:id="@+id/textWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="_ _ _ _ _"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="#222"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Grid con botones de letras -->
+    <GridLayout
+        android:id="@+id/letterGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="7"
+        android:alignmentMode="alignMargins"
+        android:useDefaultMargins="true"
+        android:gravity="center" />
+
+
+    <!-- TECLADO DE LETRAS (Botones A-Z) -->
+
 </LinearLayout>

@@ -25,6 +25,9 @@ class LevelAdapter(private val levels: List<Level>)
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
             val intent = Intent(context, Gameplay::class.java)
+
+            //Envia una clave con la palabra del nivel actual
+            intent.putExtra("currentWord", level.word)
             context.startActivity(intent)
         }
     }
