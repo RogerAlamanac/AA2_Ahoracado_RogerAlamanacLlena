@@ -12,7 +12,7 @@ import com.example.aa2_ahorcado_rogeralamanac.R
 
 class LevelAdapter(private val levels: List<Level>)
     : RecyclerView.Adapter<LevelAdapter.LevelViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelAdapter.LevelViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LevelViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_layout_manager, parent, false)
 
         return LevelViewHolder(view)
@@ -41,12 +41,14 @@ class LevelAdapter(private val levels: List<Level>)
         private val letterCount: TextView = itemView.findViewById(R.id.textLettersCount)
         private val imageDifficulty: ImageView = itemView.findViewById(R.id.imageDifficulty)
 
+        //Setear las propiedades del nivel (variables del constructor)
         fun bind(level:Level){
             levelWord.text = level.word
             letterCount.text = level.letterNum.toString()
 
-            val length = levelWord.length()
+            val length : Int = levelWord.length()
 
+            //Seteamos la imagen de dificultad en funcion de las letras que tenga la palabra
             if (length < 5) {
                 imageDifficulty.setImageResource(R.drawable.img_charmander)
             } else if (length in 5..7) {
