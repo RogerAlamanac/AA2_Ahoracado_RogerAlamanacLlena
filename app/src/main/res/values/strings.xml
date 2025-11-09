@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">AA2_Ahorcado_RogerAlamanac</string>
+    <string name="wordLevel1">MUERTO</string>
+    <string name="wordLevel2">ENTI</string>
+    <string name="wordLevel3">CANSERBERO</string>
+    <string name="wordLevel4">AMOR</string>
+    <string name="wordLevel5">GUITARRA</string>
+    <string name="wordLevel6">PROGRAMA</string>
+    <string name="wordLevel7">GATO</string>
+    <string name="wordLevel8">ESTERNOCLEIDOMASTOIDEO</string>
+    <string name="wordLevel9">AXEL</string>
+    <string name="wordLevel10">PIANO</string>
+    <string name="wordLevel11">KOTLIN</string>
+    <string name="wordLevel12">APROBADO</string>
+    <string name="youWonText">HAS GANADO!</string>
+    <string name="youLoseText">HAS PERDIDO!</string>
+    <string name="touchScreenText">Toca en la pantalla para volver al selector de niveles</string>
+    <string name="gameTitle">AHORCADO</string>
+    <string name="touchToContinue">TOCA PARA CONTINUAR</string>
+    <string name="letterCountText">Letras:</string>
+    <string name="wordLevelSelector">Palabra:</string>
+    <string name="lightDarkTheme">Modo Claro / Oscuro</string>
+
+
+</resources>

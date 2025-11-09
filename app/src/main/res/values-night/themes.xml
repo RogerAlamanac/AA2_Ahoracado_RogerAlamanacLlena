@@ -1,0 +1,8 @@
+<resources>
+    <style name="Base.Theme.AA2_Ahorcado_RogerAlamanac" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorOnPrimary">@color/onPrimaryColor</item>
+        <item name="android:colorBackground">@color/backgroundColor</item>
+        <item name="colorOnBackground">@color/onBackgroundColor</item>
+    </style>
+</resources>
