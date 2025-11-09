@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import models.Level
@@ -32,23 +33,37 @@ class LevelSelector : AppCompatActivity() {
         )
         myToolbar = findViewById(R.id.toolbarLevelSelector)
         setSupportActionBar(myToolbar)
+
         //Inicializamos RecyclerView
         val recyclerView: RecyclerView = findViewById(R.id.levels_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LevelAdapter(levels)
     }
 
+    //Funciones para interactuar con la toolbar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_general, menu)
         return true
     }
 
+    //Al clicar, se cambia el modo oscuro / claro
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.settings) {
+        return if (item.itemId == R.id.darkLightItem) {
+            changeDarkMode()
             true
         } else{
             super.onOptionsItemSelected(item)
         }
 
+    }
+
+    //Detectar modo claro / oscuro
+    private fun changeDarkMode() {
+        val currentMode = AppCompatDelegate.getDefaultNightMode()
+        if (currentMode == AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
     }
 }

@@ -20,5 +20,6 @@
     <string name="touchToContinue">TAP TO CONTINUE</string>
     <string name="letterCountText">"Letters: "</string>
     <string name="wordLevelSelector">"Word: "</string>
+    <string name="lightDarkTheme">Dark / Light Mode</string>
 
 </resources>

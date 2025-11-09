@@ -19,6 +19,7 @@
     <string name="touchToContinue">TOCA PARA CONTINUAR</string>
     <string name="letterCountText">Letras:</string>
     <string name="wordLevelSelector">Palabra:</string>
+    <string name="lightDarkTheme">Modo Claro / Oscuro</string>
 
 
 </resources>

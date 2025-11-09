@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AA2_Ahorcado_RogerAlamanac"
         tools:targetApi="31">
-        <activity
-            android:name=".Gameplay"
-            android:exported="false" />
+
         <activity
             android:name=".SplashScreen"
             android:exported="true">
@@ -27,6 +25,9 @@
         <activity
             android:name=".LevelSelector"
             android:exported="false" />
+        <activity
+            android:name=".Gameplay"
+            android:exported="false"/>
     </application>
 
 </manifest>

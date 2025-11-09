@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="@color/white">
+    android:background="@color/backgroundColor">
+
     <!-- ESTRUCTURA HECHA CON IA -->
 
     <androidx.appcompat.widget.Toolbar
