@@ -69,6 +69,7 @@ class Gameplay : AppCompatActivity() {
             buttonLetter.setOnClickListener {
                 gameManager(letter, buttonLetter);
             }
+
             //Añadimos el boton en la grid
             letterGrid.addView(buttonLetter)
         }
@@ -95,6 +96,7 @@ class Gameplay : AppCompatActivity() {
         isEnd()
     }
 
+    //Funcion para actualizar la palabra
     private fun updateWord(){
         var textToPrint = " ";
         for(it in levelWord){
@@ -121,6 +123,7 @@ class Gameplay : AppCompatActivity() {
         imgAhorcado.setImageResource(currentImage)
     }
 
+    //Funcion que comprueba si el jugador pierde o gana
     private fun isEnd(){
         if(intentsLeft == 0){
            endMessage("HAS PERDIDO!")
@@ -135,7 +138,7 @@ class Gameplay : AppCompatActivity() {
         // https://developer.android.com/reference/androidx/appcompat/app/AlertDialog.Builder
         val popUpMessage = AlertDialog.Builder(this)
             .setTitle(message)
-            .setMessage("Toca en la pantalla para volver al selector de niveles.")
+            .setMessage("Toca en la pantalla para volver al selector de niveles")
             .setCancelable(true)
             .create()
 

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_weight="0"
-        android:text="AHORCADO"
+        android:text="@string/gameTitle"
         android:textAlignment="center"
         android:textSize="50sp" />
 
@@ -26,7 +26,7 @@
         android:layout_marginRight="50dp"
         android:layout_weight="1.5"
         android:rotationX="0"
-        app:srcCompat="@drawable/img_ahorcadofinal"
+        app:srcCompat="@drawable/img_ahorcado_dead"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -36,6 +36,6 @@
         android:layout_weight="3"
         android:textAlignment="center"
         android:textSize = "30sp"
-        android:text="TAP to Continue" />
+        android:text="@string/touchToContinue" />
 
 </LinearLayout>
