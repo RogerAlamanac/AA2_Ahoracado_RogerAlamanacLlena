@@ -12,4 +12,13 @@
     <string name="wordLevel10">PIANO</string>
     <string name="wordLevel11">KOTLIN</string>
     <string name="wordLevel12">APROBADO</string>
+    <string name="youWonText">HAS GANADO!</string>
+    <string name="youLoseText">HAS PERDIDO!</string>
+    <string name="touchScreenText">Toca en la pantalla para volver al selector de niveles</string>
+    <string name="gameTitle">AHORCADO</string>
+    <string name="touchToContinue">TOCA PARA CONTINUAR</string>
+    <string name="letterCountText">Letras:</string>
+    <string name="wordLevelSelector">Palabra:</string>
+
+
 </resources>

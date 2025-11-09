@@ -18,7 +18,7 @@ class LevelAdapter(private val levels: List<Level>)
         return LevelViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: LevelAdapter.LevelViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LevelViewHolder, position: Int) {
         val level = levels[position]
         holder.bind(level)
         // Aquí hacemos el cambio de escena directamente
@@ -44,7 +44,17 @@ class LevelAdapter(private val levels: List<Level>)
         fun bind(level:Level){
             levelWord.text = level.word
             letterCount.text = level.letterNum.toString()
-            imageDifficulty.setImageResource(level.imageDifficulty)
+
+            val length = levelWord.length()
+
+            if (length < 5) {
+                imageDifficulty.setImageResource(R.drawable.img_charmander)
+            } else if (length in 5..7) {
+                imageDifficulty.setImageResource(R.drawable.img_charmeleon)
+            } else {
+                imageDifficulty.setImageResource(R.drawable.img_charizard)
+            }
+
         }
     }
 }

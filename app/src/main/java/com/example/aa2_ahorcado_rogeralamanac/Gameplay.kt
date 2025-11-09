@@ -69,6 +69,7 @@ class Gameplay : AppCompatActivity() {
             buttonLetter.setOnClickListener {
                 gameManager(letter, buttonLetter);
             }
+
             //Añadimos el boton en la grid
             letterGrid.addView(buttonLetter)
         }
@@ -137,7 +138,7 @@ class Gameplay : AppCompatActivity() {
         // https://developer.android.com/reference/androidx/appcompat/app/AlertDialog.Builder
         val popUpMessage = AlertDialog.Builder(this)
             .setTitle(message)
-            .setMessage("Toca en la pantalla para volver al selector de niveles.")
+            .setMessage("Toca en la pantalla para volver al selector de niveles")
             .setCancelable(true)
             .create()
 
