@@ -5,5 +5,8 @@
     <color name="green">#A5D6A7</color>
     <color name="red">#EF9A9A</color>
     <color name="grey">#E0E0E0</color>
-    <color name="orange">#FF9700</color>
+    <color name="primaryColor">#03A9F4</color>
+    <color name="onPrimaryColor">#FF000000</color>
+    <color name="backgroundColor">#03A9F4</color>
+    <color name="onBackgroundColor">#FF9700</color>
 </resources>

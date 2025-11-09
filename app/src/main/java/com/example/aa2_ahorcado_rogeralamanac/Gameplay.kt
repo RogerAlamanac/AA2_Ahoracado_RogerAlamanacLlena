@@ -11,20 +11,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 
 class Gameplay : AppCompatActivity() {
     //Variables del layout del gameplay
     private lateinit var imgAhorcado : ImageView
-    private lateinit var levelWord : String
     private lateinit var textLevelWord : TextView
     private lateinit var letterGrid : GridLayout
-    private  var usedLetters: Array<Char> = arrayOf()
-
-    private var intentsLeft : Int = 6
     private lateinit var gameplayLayout : View
-
     private lateinit var myToolbar: Toolbar
+
+    //Variables del sistema (que no se ven fisicamente en el layout)
+    private var intentsLeft : Int = 6
+    private var usedLetters: Array<Char> = arrayOf()
+    private lateinit var levelWord : String
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gameplay)
@@ -36,41 +39,83 @@ class Gameplay : AppCompatActivity() {
         textLevelWord = findViewById(R.id.textWord)
         letterGrid = findViewById(R.id.letterGrid)
 
-        //Detecta el string que envia el level selector para saber cual es la palabra actual
-        levelWord = intent.getStringExtra("currentWord") ?: " "
+        //Si hay alguna instancia guardada actualizamos UI (para manejo de modo claro / oscuro)
+        if (savedInstanceState != null) {
+            levelWord = savedInstanceState.getString("KEY_WORD", "DEFAULT")
+            intentsLeft = savedInstanceState.getInt("KEY_INTENTS")
 
-        setKeyboard()
-        updateWord()
+            val restoredLettersList = savedInstanceState.getStringArrayList("KEY_USED_LETTERS")
+            //Pasamos el array de string a array de char
+            usedLetters = restoredLettersList?.map { it.single() }?.toTypedArray() ?: arrayOf()
+
+            // Actualizamos la UI y el teclado
+            setKeyboard()
+            updateWord()
+            updateImage()
+
+        } else { //Si es la primera carga, se inicializa la escena
+            levelWord = intent.getStringExtra("currentWord").toString()
+            setKeyboard()
+            updateWord()
+        }
     }
 
+    //Funciones para interactuar con la toolbar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_general, menu)
         return true
     }
 
+    //Al clicar, se cambia el modo oscuro / claro
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if (item.itemId == R.id.settings) {
-            //Turn on dark / light mode
+        return if (item.itemId == R.id.darkLightItem) {
+            changeDarkMode()
             true
         } else{
             super.onOptionsItemSelected(item)
         }
 
     }
+
+    //Detectar modo claro / oscuro
+    private fun changeDarkMode() {
+        val currentMode = AppCompatDelegate.getDefaultNightMode()
+        if (currentMode == AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+    }
+
+
     private fun setKeyboard(){
-        var letters = 'A'..'Z'
-        //Bucle que añade botones (las letras) a la gridLayout
+        letterGrid.removeAllViews() // Limpia la vista si estás recreando la Activity
+        val letters = 'A'..'Z'
+        //Seteamos el teclado mediante un bucle, que spawnea botones con la letra correspondiente
         for (letter in letters){
             val buttonLetter = Button(this)
             buttonLetter.text = letter.toString()
             buttonLetter.textSize = 18f
             buttonLetter.setBackgroundColor(getColor(R.color.grey))
             buttonLetter.setTextColor(getColor(R.color.black))
-            buttonLetter.setOnClickListener {
-                gameManager(letter, buttonLetter);
+
+            if (letter in usedLetters) {
+                buttonLetter.isEnabled = false
+                //Si la letra esta en la palabra se vuelve verde / en caso contrario se vuelve rojo
+                if (letter in levelWord) {
+                    buttonLetter.setBackgroundColor(getColor(R.color.green))
+                } else {
+                    buttonLetter.setBackgroundColor(getColor(R.color.red))
+                }
+            } else {
+                buttonLetter.setBackgroundColor(getColor(R.color.grey))
+                buttonLetter.setTextColor(getColor(R.color.black))
             }
 
-            //Añadimos el boton en la grid
+            buttonLetter.setOnClickListener {
+                gameManager(letter, buttonLetter)
+            }
+
             letterGrid.addView(buttonLetter)
         }
     }
@@ -91,14 +136,14 @@ class Gameplay : AppCompatActivity() {
 
         }
 
-        button.setEnabled(false);
+        button.isEnabled = false
         updateWord()
         isEnd()
     }
 
     //Funcion para actualizar la palabra
     private fun updateWord(){
-        var textToPrint = " ";
+        var textToPrint = " "
         for(it in levelWord){
             if(it in usedLetters) {
                 textToPrint += "$it"
@@ -107,8 +152,9 @@ class Gameplay : AppCompatActivity() {
                 textToPrint += "_ "
             }
         }
-        textLevelWord.text = textToPrint;
+        textLevelWord.text = textToPrint
     }
+
     private fun updateImage(){
 
         val currentImage = when(intentsLeft){
@@ -126,19 +172,17 @@ class Gameplay : AppCompatActivity() {
     //Funcion que comprueba si el jugador pierde o gana
     private fun isEnd(){
         if(intentsLeft == 0){
-           endMessage("HAS PERDIDO!")
+           endMessage(R.string.youLoseText)
         } else if(levelWord.all{ it in usedLetters}){
-            endMessage("HAS GANADO!")
+            endMessage(R.string.youWonText)
         }
     }
 
-    private fun endMessage(message: String){
+    private fun endMessage(message: Int){
         //Creamos el "pop-up" del mensaje you win / you lose
-        //El dialogo lo he visto en la API de ANDROID:
-        // https://developer.android.com/reference/androidx/appcompat/app/AlertDialog.Builder
-        val popUpMessage = AlertDialog.Builder(this)
+        val popUpMessage : AlertDialog = AlertDialog.Builder(this)
             .setTitle(message)
-            .setMessage("Toca en la pantalla para volver al selector de niveles")
+            .setMessage(R.string.touchScreenText)
             .setCancelable(true)
             .create()
 
@@ -148,7 +192,19 @@ class Gameplay : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
         popUpMessage.show()
+    }
+
+    //Funcion para que al cambiar de modo oscuro / claro no se reinicie la escena
+    override fun onSaveInstanceState(outState: Bundle) {
+        // Guardamos la palabra secreta, intentos y letras usadas
+        outState.putString("KEY_WORD", levelWord)
+
+        outState.putInt("KEY_INTENTS", intentsLeft)
+
+        val lettersToSave = ArrayList(usedLetters.map { it.toString() })
+        outState.putStringArrayList("KEY_USED_LETTERS", lettersToSave)
+
+        super.onSaveInstanceState(outState)
     }
 }

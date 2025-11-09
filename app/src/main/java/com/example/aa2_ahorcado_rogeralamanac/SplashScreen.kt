@@ -11,6 +11,7 @@ class SplashScreen : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
         val layout = findViewById<View>(R.id.rootLayout)
 
+        //Al clickar en cualquier lugar de la pantalla, va al level selector
         layout.setOnClickListener {
             val intent = Intent(this, LevelSelector::class.java)
             startActivity(intent)
